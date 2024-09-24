@@ -1,0 +1,83 @@
+version: '3.7'
+
+services:
+  consul:
+    image: consul:1.14.5
+    container_name: consul_dev
+    restart: always
+    ports:
+      - "8500:8500"
+    networks:
+      - smart_mess_networks
+
+  db:
+    container_name: smart_mess_mysql
+    image: mysql:8.0.31
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.db
+    ports:
+      - "3306:3306"
+    volumes:
+      - smart_mess_db:/var/lib/mysql:rw
+#      - ./scripts/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=smart_mess_db
+      - MYSQL_USER=smart_mess_user
+      - MYSQL_PASSWORD=12345678
+    tty: true
+    networks:
+      - smart_mess_networks
+
+  redis:
+    image: 'bitnami/redis:6.0.9'
+    container_name: redis_dev
+    restart: always
+    ports:
+      - "6390:6379"
+    environment:
+      - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+      - REDIS_PASSWORD=password123
+    volumes:
+      - smart_mess_cache:/bitnami/redis/data:rw
+    networks:
+      - smart_mess_networks
+
+  smart_mess:
+    container_name: smart_mess
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    command: serve  # make `serve` into `seed` or `seed --truncate=true` if anyone want to run the seeder
+    volumes:
+      - ./:/project
+    environment:
+      - CONSUL_URL=http://consul_dev:8500
+      - CONSUL_PATH=smart_mess
+    tty: true
+    depends_on:
+      - consul
+      - db
+      - redis
+    networks:
+      - smart_mess_networks
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+networks:
+  smart_mess_networks:
+    name: smart_mess_networks
+    driver: bridge
+
+volumes:
+  smart_mess_db:
+    name: clean-arch-db-data
+  smart_mess_cache:
+    name: clean-arch-cache-data

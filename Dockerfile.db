@@ -1,0 +1,3 @@
+FROM mysql:8.0.31
+#Initial database load
+COPY ./scripts/initdb.sql /docker-entrypoint-initdb.d/

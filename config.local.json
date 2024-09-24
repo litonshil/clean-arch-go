@@ -1,0 +1,44 @@
+{
+  "app": {
+    "name": "smart_mess",
+    "port": 8080,
+    "appKeyHeader": "app-key",
+    "appKey": "appkey",
+    "idleTimeout": 30,
+    "readTimeout": 30,
+    "writeTimeout": 30
+  },
+  "db": {
+    "master": {
+      "debug": true,
+      "prepareStmt": true,
+      "host": "db",
+      "port": 3306,
+      "maxIdleConn": 5,
+      "maxLifeTime": 30,
+      "maxOpenConn": 10,
+      "name": "smart_mess_db",
+      "username": "smart_mess_user",
+      "password": "12345678"
+    },
+    "replica1": {
+      "port": 3306,
+      "host": "db",
+      "name": "smart_mess_db",
+      "username": "smart_mess_user",
+      "password": "12345678",
+      "debug": true
+    }
+  },
+  "cache": {
+    "redis": {
+      "host": "redis",
+      "port": 6379,
+      "username": "",
+      "password": "password123",
+      "valueExpiredIn": 0,
+      "database": 4,
+      "mandatoryPrefix": "smart_mess_"
+    }
+  }
+}
