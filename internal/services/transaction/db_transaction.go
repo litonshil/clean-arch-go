@@ -1,7 +1,7 @@
 package transaction
 
 import (
-	"clean-arch/infra/logger"
+	"clean-arch/client/logger"
 	"clean-arch/internal/domain"
 	"context"
 	"gorm.io/gorm"

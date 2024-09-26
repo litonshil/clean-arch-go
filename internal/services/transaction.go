@@ -1,7 +1,7 @@
 package services
 
 import (
-	"clean-arch/infra/logger"
+	"clean-arch/client/logger"
 	"clean-arch/internal/domain"
 	"clean-arch/utils/consts"
 	"fmt"

@@ -1,8 +1,8 @@
 package server
 
 import (
+	"clean-arch/client/logger"
 	"clean-arch/config"
-	"clean-arch/infra/logger"
 	"context"
 	"fmt"
 	"github.com/labstack/echo/v4"

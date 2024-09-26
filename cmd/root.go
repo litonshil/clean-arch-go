@@ -1,8 +1,8 @@
 package cmd
 
 import (
+	"clean-arch/client/conn"
 	"clean-arch/config"
-	"clean-arch/infra/conn"
 	"fmt"
 	"os"
 

@@ -1,7 +1,7 @@
 package db
 
 import (
-	"clean-arch/infra/logger"
+	"clean-arch/client/logger"
 	"clean-arch/internal/domain"
 	"clean-arch/internal/services/transaction"
 	"context"

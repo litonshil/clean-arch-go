@@ -1,9 +1,9 @@
 package cmd
 
 import (
+	"clean-arch/client/conn"
+	"clean-arch/client/logger"
 	"clean-arch/config"
-	"clean-arch/infra/conn"
-	"clean-arch/infra/logger"
 	"clean-arch/internal/http/controllers"
 	httpRoutes "clean-arch/internal/http/routes"
 	httpServer "clean-arch/internal/http/server"
